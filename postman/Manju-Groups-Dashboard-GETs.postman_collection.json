@@ -1,0 +1,116 @@
+{
+  "info": {
+    "name": "Manju Groups Dashboard GETs",
+    "description": "Dashboard GET requests with saved example responses showing the expected JSON shapes. Set baseUrl to the origin of your API before sending requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000", "type": "string" },
+    { "key": "propertyId", "value": "property-the-somerset", "type": "string" },
+    { "key": "offset", "value": "0", "type": "string" },
+    { "key": "limit", "value": "20", "type": "string" },
+    { "key": "north", "value": "13.20719", "type": "string" },
+    { "key": "south", "value": "12.87272", "type": "string" },
+    { "key": "east", "value": "80.37941", "type": "string" },
+    { "key": "west", "value": "80.09995", "type": "string" },
+    { "key": "zoom", "value": "11", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Workspace",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/workspace" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/workspace" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"workspace\": {\n      \"name\": \"Manju Groups\",\n      \"location\": \"Chennai portfolio\",\n      \"owner\": \"Priya Shah\"\n    }\n  }\n}"
+      }]
+    },
+    {
+      "name": "Employees",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/employees" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/employees" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"employees\": [\n      {\n        \"id\": \"employee-priya\",\n        \"name\": \"Priya Shah\",\n        \"email\": \"priya@manjugroups.com\",\n        \"role\": \"employee\",\n        \"initials\": \"PS\",\n        \"title\": \"Senior Property Advisor\"\n      }\n    ]\n  }\n}"
+      }]
+    },
+    {
+      "name": "Properties - Paginated Index",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/properties?offset={{offset}}&limit={{limit}}" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/properties?offset={{offset}}&limit={{limit}}" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"property-the-somerset\",\n        \"name\": \"The Somerset\",\n        \"location\": \"Adyar, Chennai\",\n        \"type\": \"Residential\",\n        \"status\": \"Limited\",\n        \"price\": \"₹1.18 Cr\",\n        \"units\": [\"B-302\", \"B-401\", \"C-105\"],\n        \"coordinates\": [13.0012, 80.2565],\n        \"imageUrl\": \"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85\",\n        \"assignedTo\": \"employee-priya\"\n      }\n    ],\n    \"pagination\": {\n      \"offset\": 0,\n      \"limit\": 20,\n      \"total\": 1,\n      \"hasMore\": false\n    }\n  }\n}"
+      }]
+    },
+    {
+      "name": "Properties - Map Bounds",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/properties?north={{north}}&south={{south}}&east={{east}}&west={{west}}&zoom={{zoom}}" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/properties?north={{north}}&south={{south}}&east={{east}}&west={{west}}&zoom={{zoom}}" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"items\": [\n      {\n        \"id\": \"property-the-somerset\",\n        \"name\": \"The Somerset\",\n        \"location\": \"Adyar, Chennai\",\n        \"type\": \"Residential\",\n        \"status\": \"Limited\",\n        \"price\": \"₹1.18 Cr\",\n        \"units\": [\"B-302\", \"B-401\", \"C-105\"],\n        \"coordinates\": [13.0012, 80.2565],\n        \"imageUrl\": \"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85\",\n        \"assignedTo\": \"employee-priya\"\n      }\n    ]\n  }\n}"
+      }]
+    },
+    {
+      "name": "Property - Detail",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/properties/{{propertyId}}" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/properties/{{propertyId}}" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"property\": {\n      \"id\": \"property-the-somerset\",\n      \"name\": \"The Somerset\",\n      \"location\": \"Adyar, Chennai\",\n      \"type\": \"Residential\",\n      \"status\": \"Limited\",\n      \"price\": \"₹1.18 Cr\",\n      \"units\": [\"B-302\", \"B-401\", \"C-105\"],\n      \"description\": \"A calm residential address with landscaped shared spaces and practical family layouts.\",\n      \"coordinates\": [13.0012, 80.2565],\n      \"imageUrl\": \"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85\",\n      \"media\": [\n        { \"type\": \"image\", \"url\": \"https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85\" },\n        { \"type\": \"image\", \"url\": \"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=85\" },\n        { \"type\": \"image\", \"url\": \"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=85\" }\n      ],\n      \"assignedTo\": \"employee-priya\"\n    }\n  }\n}"
+      }]
+    },
+    {
+      "name": "Leads",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/leads" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/leads" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"leads\": [\n      {\n        \"id\": \"lead-karthik\",\n        \"name\": \"Karthik Subramanian\",\n        \"email\": \"karthik@example.com\",\n        \"phone\": \"+91 98401 23456\",\n        \"property\": \"The Somerset\",\n        \"propertyId\": \"property-the-somerset\",\n        \"stage\": \"Interested\",\n        \"unit\": \"B-302\",\n        \"budget\": \"₹1.2 Cr\",\n        \"assignedTo\": \"employee-priya\",\n        \"createdAt\": \"2026-09-22T09:30:00.000Z\"\n      }\n    ]\n  }\n}"
+      }]
+    },
+    {
+      "name": "Bookings",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/bookings" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/bookings" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"bookings\": [\n      {\n        \"id\": \"booking-1\",\n        \"property\": \"The Somerset\",\n        \"propertyId\": \"property-the-somerset\",\n        \"lead\": \"Karthik Subramanian\",\n        \"leadId\": \"lead-karthik\",\n        \"unit\": \"B-302\",\n        \"amount\": \"₹1.18 Cr\",\n        \"status\": \"Reserved\",\n        \"createdAt\": \"2026-09-22T10:00:00.000Z\"\n      }\n    ]\n  }\n}"
+      }]
+    },
+    {
+      "name": "Meetings",
+      "request": { "method": "GET", "header": [{ "key": "Accept", "value": "application/json" }], "url": "{{baseUrl}}/meetings" },
+      "response": [{
+        "name": "Expected JSON body",
+        "originalRequest": { "method": "GET", "header": [], "url": "{{baseUrl}}/meetings" },
+        "status": "OK", "code": 200,
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "cookie": [], "_postman_previewlanguage": "json",
+        "body": "{\n  \"data\": {\n    \"meetings\": [\n      {\n        \"id\": \"meeting-1\",\n        \"leadId\": \"lead-karthik\",\n        \"lead\": \"Karthik Subramanian\",\n        \"property\": \"The Somerset\",\n        \"date\": \"2026-09-26\",\n        \"time\": \"11:30\",\n        \"type\": \"Site visit\",\n        \"notes\": \"Review the available layouts.\"\n      }\n    ]\n  }\n}"
+      }]
+    }
+  ]
+}
