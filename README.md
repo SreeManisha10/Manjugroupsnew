@@ -1,190 +1,220 @@
-# React + Vite
+# Manju Groups CRM
 
-## API
+A modern real-estate sales CRM built for Manju Groups to manage leads, property inventory, bookings, sales follow-ups, and team communication in one workspace.
 
-The app uses the REST client in `src/api/api.js`. Relative routes are fetched as declared; the Properties map currently uses its configured Postman endpoint.
+This frontend is built with React, Vite, TypeScript, Tailwind and TanStack Router. It supports both admin and sales-employee workflows for a property sales team.
 
-Without a reachable API, the app keeps its built-in demo data and local optimistic actions as a fallback.
+## Overview
 
-The frontend uses these routes (all JSON responses may be returned directly or wrapped in `data`):
+The application helps the sales team:
 
-| Method | Route | Use |
-| --- | --- | --- |
-| GET | `/workspace`, `/employees`, `/leads`, `/bookings`, `/meetings` | Load workspace data after sign-in |
-| GET | `/properties?offset=0&limit=20` | Load paginated property summaries for the index; index scrolling requests the next offset |
-| GET | `/properties?north=...&south=...&east=...&west=...&zoom=...` | Load property markers in the current map viewport without pagination parameters |
-| GET | `/properties/:id` | Load full details for one property when its detail view is opened |
-| POST | `/auth/signin`, `/auth/signup` | Authenticate or create an account; responses may include `user`/`account` and `token`/`accessToken` |
-| POST | `/auth/signout` | End the current session |
-| POST/PATCH | `/workspace`, `/properties`, `/properties/:id`, `/properties/:id/assignment` | Create or update workspace and properties |
-| POST/PATCH | `/leads`, `/leads/:id`, `/leads/:id/assignment` | Create or update leads and assignments |
-| POST | `/bookings`, `/meetings` | Create bookings and meetings |
-| GET/POST | `/leads/:id/messages` | Read and create lead conversation messages |
-| GET/POST | `/leads/:id/calls` | Read and create call logs |
-| POST | `/uploads` | Upload one multipart file using the `file` field; return its durable `url` |
+- Track new and active property leads
+- Move leads through sales stages
+- Assign leads to sales representatives
+- Manage unit availability and sales inventory
+- Record property bookings and revenue
+- Monitor follow-ups and overdue activities
+- Collaborate via an internal chat screen
 
-Message records use `sender`, `text`, and `attachments`; call records use `phone`, `notes`, `startedAt`, and `endedAt`. Upload responses should return `{ url, name }` directly or inside `data`/`file`.
+## Features
 
-The paginated Properties endpoint should return a page and its pagination metadata:
+### Admin workspace
+- Dashboard overview with lead pipeline, follow-ups and bookings
+- Leads management with create, edit, filter and assign actions
+- Property and unit tracking with status updates
+- Booking tracking and payment value summaries
+- Team visibility across sales activities
 
-```json
-{
-	"data": {
-		"items": [{ "id": "property-123", "name": "The Somerset", "coordinates": [13.0012, 80.2565], "units": ["A-101"], "media": [] }],
-		"pagination": { "offset": 0, "limit": 20, "total": 60, "hasMore": true }
-	}
-}
+### Sales employee workspace
+- Personal dashboard focused on assigned tasks
+- Lead tracking for their own sales pipeline
+- Assigned unit visibility
+- Internal chat and communication workspace
+
+## Tech stack
+
+- React 19
+- TypeScript
+- Vite
+- TanStack Router
+- Tailwind CSS
+- Radix UI components
+- React Query
+- Node backend server
+
+## Prerequisites
+
+Before running the project, make sure you have:
+
+- Node.js 18 or above
+- npm or Bun
+- A browser such as Chrome or Edge
+
+## Installation
+
+1. Open a terminal in the project folder.
+2. Install dependencies:
+
+```bash
+npm install
 ```
 
-The map lookup should return the properties in the requested bounds as an array or as an `items` array, without pagination metadata. Catalog requests use only `offset` and `limit`; map requests use only bounds and `zoom`.
+3. Start the frontend development server:
 
-### Dashboard GET response bodies
-
-These are the canonical wrapped responses consumed by the sales and admin dashboards. The client also accepts the corresponding payload directly, without the outer `data` property.
-
-`GET /workspace`
-
-```json
-{
-	"data": {
-		"workspace": {
-			"name": "Manju Groups",
-			"location": "Chennai portfolio",
-			"owner": "Priya Shah"
-		}
-	}
-}
+```bash
+npm run dev
 ```
 
-`GET /employees`
+The app will run on:
 
-```json
-{
-	"data": {
-		"employees": [
-			{
-				"id": "employee-priya",
-				"name": "Priya Shah",
-				"email": "priya@manjugroups.com",
-				"role": "employee",
-				"initials": "PS",
-				"title": "Senior Property Advisor"
-			}
-		]
-	}
-}
+- https://sreemanisha10.github.io/manjugroups/
+
+
+## Project structure
+
+```text
+src/
+  components/
+  lib/
+  routes/
+  api/
+  styles.css
+server/
+  api-server.js
+backend/
+  CRM/
+public/
 ```
 
-`GET /properties?offset=0&limit=20`
+## How the site works
 
-```json
-{
-	"data": {
-		"items": [
-			{
-				"id": "property-the-somerset",
-				"name": "The Somerset",
-				"location": "Adyar, Chennai",
-				"type": "Residential",
-				"status": "Limited",
-				"price": "₹1.18 Cr",
-				"units": ["B-302", "B-401", "C-105"],
-				"coordinates": [13.0012, 80.2565],
-				"imageUrl": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=85",
-				"assignedTo": "employee-priya"
-			}
-		],
-		"pagination": {
-			"offset": 0,
-			"limit": 20,
-			"total": 1,
-			"hasMore": false
-		}
-	}
-}
+### 1. Sign in or create an account
+
+When you open the app, you will see the authentication screen.
+
+- Use the Sign in tab for existing users
+- Use Create account to register a new sales user or admin
+- Roles supported:
+  - Admin
+  - Sales Employee
+
+### 2. Dashboard
+
+After login, the dashboard shows:
+
+- lead pipeline overview
+- today and overdue follow-ups
+- unit availability
+- booked value and conversion insights
+- sales stage summary
+
+### 3. Leads module
+
+From the Leads page, you can:
+
+- view all leads
+- search by customer name or data
+- filter by stage
+- update stage or follow-up date
+- assign leads to sales employees
+- add new leads or edit existing records
+
+### 4. Properties module
+
+Use the Properties page to:
+
+- view all available and sold units
+- update unit status
+- manage property inventory
+- track assigned units for sales reps
+
+### 5. Bookings module
+
+The Bookings page helps track:
+
+- confirmed property bookings
+- booked unit information
+- booking amount and related sales data
+- customer-to-unit linkage
+
+### 6. Employee view
+
+Sales employees can view a role-specific page showing:
+
+- their assigned leads
+- active pipeline performance
+- related unit assignments
+- task focus for their sales queue
+
+### 7. Chat
+
+The Chat screen is intended as a sales communication area for internal messaging and follow-ups.
+
+## Recommended user flow
+
+For a standard sales workflow:
+
+1. Create or review a lead
+2. Assign the lead to the right sales employee
+3. Update the stage as the customer moves from enquiry to booking
+4. Schedule a follow-up date
+5. Visit the property or coordinate a site visit
+6. Mark the lead as interested, negotiation, or booked
+7. Confirm the booking in the booking screen
+
+## Environment notes
+
+This project is configured for a frontend-first workflow. If you are integrating with backend APIs later, update the URL configuration in the API layer under:
+
+- src/api/axios.ts
+
+The app is structured so the frontend can be connected to external CRM endpoints without rewriting the screens.
+
+## Troubleshooting
+
+### The app does not start
+- Ensure Node.js is installed
+- Run npm install again
+- Check if a port conflict exists on 8000
+
+### Authentication fails
+- Confirm the account details are correct
+- Create a new account if needed
+- Check the backend or API configuration for login endpoints
+
+### Data is not loading
+- Make sure the backend server is running if the app is connected to a live API
+- Review the CRM endpoint configuration in src/api/axios.ts
+
+## Production build
+
+To create a production build:
+
+```bash
+npm run build
 ```
 
-`GET /leads`
+To preview the production build locally:
 
-```json
-{
-	"data": {
-		"leads": [
-			{
-				"id": "lead-karthik",
-				"name": "Karthik Subramanian",
-				"email": "karthik@example.com",
-				"phone": "+91 98401 23456",
-				"property": "The Somerset",
-				"propertyId": "property-the-somerset",
-				"stage": "Interested",
-				"unit": "B-302",
-				"budget": "₹1.2 Cr",
-				"assignedTo": "employee-priya",
-				"createdAt": "2026-09-22T09:30:00.000Z"
-			}
-		]
-	}
-}
+```bash
+npm run preview
 ```
 
-`GET /bookings`
+## License
 
-```json
-{
-	"data": {
-		"bookings": [
-			{
-				"id": "booking-1",
-				"property": "The Somerset",
-				"propertyId": "property-the-somerset",
-				"lead": "Karthik Subramanian",
-				"leadId": "lead-karthik",
-				"unit": "B-302",
-				"amount": "₹1.18 Cr",
-				"status": "Reserved",
-				"createdAt": "2026-09-22T10:00:00.000Z"
-			}
-		]
-	}
-}
-```
+This project is for internal business use by Manju Groups and is intended as a CRM workspace for property sales operations.
 
-`GET /meetings`
+## Notes
 
-```json
-{
-	"data": {
-		"meetings": [
-			{
-				"id": "meeting-1",
-				"leadId": "lead-karthik",
-				"lead": "Karthik Subramanian",
-				"property": "The Somerset",
-				"date": "2026-09-26",
-				"time": "11:30",
-				"type": "Site visit",
-				"notes": "Review the available layouts."
-			}
-		]
-	}
-}
-```
+This project can be extended later with:
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- real backend database integration
+- role-based permissions
+- PDF invoice generation
+- document upload for customers
+- advanced analytics and reporting
+- notifications and reminders
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+For future handoff, keep this README updated whenever the UI is changed or new flows are added.
