@@ -138,7 +138,7 @@ export default function HouseScene() {
 
     const loader = new GLTFLoader()
     let isDisposed = false
-    loader.load('/modern-house.glb', (gltf) => {
+    loader.load(`${import.meta.env.BASE_URL}modern-house.glb`, (gltf) => {
       const model = gltf.scene
       if (isDisposed) {
         disposeObject(model)
