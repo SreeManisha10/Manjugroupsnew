@@ -4,7 +4,7 @@ import { Line } from 'react-chartjs-2'
 import { Link } from 'react-router-dom'
 import { useApp } from '../context/useApp'
 import AppointmentCalendar from '../components/AppointmentCalendar'
-import HouseScene from '../components/HouseScene'
+import HouseScene from '../components/DeferredHouseScene'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip)
 

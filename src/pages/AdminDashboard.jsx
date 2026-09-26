@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 import { ArcElement, BarElement, CategoryScale, Chart as ChartJS, Filler, Legend, LinearScale, LineElement, PointElement, Tooltip } from 'chart.js'
 import { Bar, Doughnut, Line } from 'react-chartjs-2'
 import { useApp } from '../context/useApp'
-import HouseScene from '../components/HouseScene'
 import LoadingSkeleton from '../components/LoadingSkeleton'
 import AppointmentCalendar from '../components/AppointmentCalendar'
+
+import HouseScene from '../components/DeferredHouseScene'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Filler, Tooltip, Legend)
 
